@@ -1,0 +1,14 @@
+name: Trigger Website Rebuild
+
+on:
+  repository_dispatch:
+    types: [upstream_release]
+  workflow_dispatch:
+
+jobs:
+  build-trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dispatch Netlify Deploy Hook
+        run: |
+          curl -X POST -d '{}' "${{ secrets.NETLIFY_BUILD_HOOK_URL }}"

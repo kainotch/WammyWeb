@@ -12,6 +12,7 @@ try {
 }
 
 export default defineConfig({
+  base: '/WammyWeb/',
   title: `Wammy${version}`,
   description: "Manga and novels, one shelf.",
   head: [
@@ -73,3 +74,4 @@ export default defineConfig({
     }
   }
 })
+

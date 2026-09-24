@@ -30,17 +30,22 @@ features:
 
 <script setup>
 import { onMounted } from 'vue'
+import { data as bakedData } from './.vitepress/theme/data/releases.data'
 
 onMounted(async () => {
-  // First, set up the DOM element
+  // First, set up the DOM element with baked data
   const nameEl = document.querySelector('.VPHero .name .clip');
+  let currentVersion = bakedData.version !== 'Coming soon' ? bakedData.version : '';
+  
   if (nameEl && !nameEl.innerHTML.includes('wammy-version')) {
-    nameEl.innerHTML = `Wammy <span id="wammy-version" style="font-size: 0.5em; color: var(--vp-c-text-2); vertical-align: middle; margin-left: 8px; transition: opacity 0.3s;"></span>`;
+    nameEl.innerHTML = `Wammy <span id="wammy-version" style="font-size: 0.5em; color: var(--vp-c-text-2); vertical-align: middle; margin-left: 8px; transition: opacity 0.3s;">${currentVersion}</span>`;
   }
   
   // Then fetch the latest version client-side
   try {
-    const response = await fetch('https://api.github.com/repos/kainotch/Wammy/releases/latest');
+    const response = await fetch('https://api.github.com/repos/kainotch/Wammy/releases/latest', {
+      headers: { 'Cache-Control': 'max-age=600' }
+    });
     if (response.ok) {
       const data = await response.json();
       const versionEl = document.getElementById('wammy-version');

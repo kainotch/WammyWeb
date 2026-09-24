@@ -3,14 +3,16 @@ name: Deploy VitePress site to Pages
 on:
   push:
     branches: [main]
+  repository_dispatch:
+    types: [update_website]
+  schedule:
+    - cron: '0 */6 * * *'
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment
 concurrency:
   group: pages
   cancel-in-progress: false

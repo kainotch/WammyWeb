@@ -116,8 +116,14 @@
 /* Force the text container to sit on the left */
 .VPHero .container {
   width: 100%;
-  padding-left: 4rem;
   justify-content: flex-start !important;
+  padding-left: 1.5rem; /* mobile default */
+}
+
+@media (min-width: 768px) {
+  .VPHero .container {
+    padding-left: 4rem; /* pc gap */
+  }
 }
 
 .VPHero .main {
@@ -130,13 +136,22 @@
   background: none;
   -webkit-text-fill-color: var(--vp-c-text-1);
   color: var(--vp-c-text-1);
-  font-size: 3.5rem;
+  font-size: 2.5rem;
   letter-spacing: -1px;
 }
 .VPHero .text {
   color: var(--vp-c-brand-3);
-  font-size: 2.5rem;
+  font-size: 1.8rem;
   margin-top: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .VPHero .name .clip {
+    font-size: 3.5rem;
+  }
+  .VPHero .text {
+    font-size: 2.5rem;
+  }
 }
 .VPHero .tagline {
   color: var(--vp-c-text-1);
@@ -148,4 +163,6 @@
 .VPHero .image {
   display: none !important;
 }
+
+
 

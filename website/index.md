@@ -3,7 +3,6 @@ layout: home
 
 hero:
   name: "Wammy"
-  
   text: "Manga and novels, one shelf."
   tagline: "A free, open-source Android reader with built-in sources. No extensions required."
   actions:
@@ -31,14 +30,26 @@ features:
 
 <script setup>
 import { onMounted } from 'vue'
-import { data } from './.vitepress/theme/data/releases.data'
 
-onMounted(() => {
+onMounted(async () => {
+  // First, set up the DOM element
   const nameEl = document.querySelector('.VPHero .name .clip');
-  if (nameEl && !nameEl.innerHTML.includes(data.version)) {
-    nameEl.innerHTML = `Wammy <span style="font-size: 0.5em; color: var(--vp-c-text-2); vertical-align: middle; margin-left: 8px;">${data.version}</span>`;
+  if (nameEl && !nameEl.innerHTML.includes('wammy-version')) {
+    nameEl.innerHTML = `Wammy <span id="wammy-version" style="font-size: 0.5em; color: var(--vp-c-text-2); vertical-align: middle; margin-left: 8px; transition: opacity 0.3s;"></span>`;
+  }
+  
+  // Then fetch the latest version client-side
+  try {
+    const response = await fetch('https://api.github.com/repos/kainotch/Wammy/releases/latest');
+    if (response.ok) {
+      const data = await response.json();
+      const versionEl = document.getElementById('wammy-version');
+      if (versionEl && data.tag_name) {
+        versionEl.innerText = data.tag_name;
+      }
+    }
+  } catch (e) {
+    console.error("Failed to fetch version", e);
   }
 })
 </script>
-
-

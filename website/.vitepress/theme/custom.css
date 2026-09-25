@@ -1,4 +1,4 @@
-:root {
+﻿:root {
   --vp-c-brand-1: #a855f7;
   --vp-c-brand-2: #9333ea;
   --vp-c-brand-3: #c084fc;
@@ -165,4 +165,10 @@
 }
 
 
+
+
+/* Make the navbar solid */
+.VPNavBar {
+  background-color: var(--vp-c-bg) !important;
+}
 

@@ -3,8 +3,8 @@ layout: home
 
 hero:
   name: "Wammy"
-  text: "Manga and novels, one shelf."
-  tagline: "A free, open-source Android reader with built-in sources. No extensions required."
+  text: "Manga, Manhwa & Light Novel Reader"
+  tagline: "Wammy is a free, open-source Android app designed to unify your reading experience. It comes with high-quality content sources built directly into the app, meaning you don't need to hunt for third-party extensions to start reading."
   actions:
     - theme: brand
       text: Download APK
@@ -14,18 +14,21 @@ hero:
       link: https://github.com/kainotch/Wammy
 
 features:
-  - title: Manga + Novels together
-    details: Manage your entire reading library in one app. Seamlessly switch between manga and novels.
+  - title: Manga + Novels Together
+    details: Manage your entire reading library in one single app. Seamlessly switch between reading a manga chapter and a light novel without missing a beat.
     link: /docs/guides/getting-started
     linkText: Get started
 
-  - title: Sources built in
-    details: No more hunting for extensions. Wammy comes with high-quality content sources built right in.
+  - title: Sources Built In
+    details: No more searching for extension repositories. Wammy comes with high-quality, curated manga and novel sources built right in so you can read immediately.
     link: /docs/faq/extensions
     linkText: Learn why
 
-  - title: Gesture navigation
-    details: Hold and slide the floating action button to effortlessly glide between your feeds. Intuitive and fast.
+  - title: Global Search & Tracking
+    details: Search across all sources at once to find exactly what you want to read. Automatically track your progress with MyAnimeList, AniList, and more.
+    
+  - title: Gesture Navigation
+    details: Hold and slide the floating action button to effortlessly glide between your feeds and chapters. Intuitive and fast for one-handed reading.
 ---
 
 <script setup>

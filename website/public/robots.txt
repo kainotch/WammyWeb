@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kainotch.github.io/WammyWeb/sitemap.xml

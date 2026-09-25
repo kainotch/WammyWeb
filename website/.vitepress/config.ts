@@ -1,24 +1,37 @@
 import { defineConfig } from 'vitepress'
 
-let version = '';
-try {
-  const response = await fetch('https://api.github.com/repos/kainotch/Wammy/releases/latest', {
-    headers: { 'User-Agent': 'VitePress-Builder' }
-  });
-  const data = await response.json();
-  version = data.tag_name ? ` ${data.tag_name}` : '';
-} catch (e) {
-  console.error("Failed to fetch version for site title", e);
-}
-
 export default defineConfig({
   base: '/WammyWeb/',
-  title: `Wammy${version}`,
-  description: "Manga and novels, one shelf.",
+  title: "Wammy – Manga, Manhwa & Light Novel Reader",
+  description: "A free, open-source Android reader for manga, manhwa, and light novels. No extensions required, with built-in high-quality sources.",
+  
+  sitemap: {
+    hostname: 'https://kainotch.github.io/WammyWeb/'
+  },
+
   head: [
     ['meta', { name: 'theme-color', content: '#a855f7' }],
-    ['link', { rel: 'icon', href: '/favicon.ico' }]
+    ['link', { rel: 'icon', href: '/favicon.ico' }],
+    ['meta', { name: 'robots', content: 'index, follow' }],
+    ['meta', { name: 'keywords', content: 'manga reader, manhwa reader, light novel reader, android manga app, wammy, tachiyomi alternative, mihon alternative, open source reader' }],
+    ['meta', { property: 'og:title', content: 'Wammy – Manga, Manhwa & Light Novel Reader' }],
+    ['meta', { property: 'og:description', content: 'A free, open-source Android reader for manga, manhwa, and light novels. No extensions required, with built-in high-quality sources.' }],
+    ['meta', { property: 'og:image', content: 'https://kainotch.github.io/WammyWeb/img/hero-bg.jpg' }],
+    ['meta', { property: 'og:type', content: 'website' }]
   ],
+
+  transformPageData(pageData) {
+    const canonicalUrl = `https://kainotch.github.io/WammyWeb/${pageData.relativePath}`
+      .replace(/index\.md$/, '')
+      .replace(/\.md$/, '')
+    
+    pageData.frontmatter.head ??= []
+    pageData.frontmatter.head.push(
+      ['link', { rel: 'canonical', href: canonicalUrl }],
+      ['meta', { property: 'og:url', content: canonicalUrl }]
+    )
+  },
+
   cleanUrls: true,
   appearance: 'dark',
   
@@ -70,9 +83,7 @@ export default defineConfig({
 
     footer: {
       message: 'Free and open source software under the Apache License 2.0',
-      copyright: 'Copyright © 2026 Wammy'
+      copyright: 'Copyright c 2026 Wammy'
     }
   }
 })
-
-

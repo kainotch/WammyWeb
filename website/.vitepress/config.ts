@@ -1,8 +1,8 @@
-import { defineConfig } from 'vitepress'
+ï»¿import { defineConfig } from 'vitepress'
 
 export default defineConfig({
   base: '/WammyWeb/',
-  title: "Wammy – Manga, Manhwa & Light Novel Reader",
+  title: "Wammy Manga and Light Novel Reader",
   description: "A free, open-source Android reader for manga, manhwa, and light novels. No extensions required, with built-in high-quality sources.",
   
   sitemap: {
@@ -14,7 +14,7 @@ export default defineConfig({
     ['link', { rel: 'icon', href: '/favicon.ico' }],
     ['meta', { name: 'robots', content: 'index, follow' }],
     ['meta', { name: 'keywords', content: 'manga reader, manhwa reader, light novel reader, android manga app, wammy, tachiyomi alternative, mihon alternative, open source reader' }],
-    ['meta', { property: 'og:title', content: 'Wammy – Manga, Manhwa & Light Novel Reader' }],
+    ['meta', { property: 'og:title', content: 'Wammy Manga and Light Novel Reader' }],
     ['meta', { property: 'og:description', content: 'A free, open-source Android reader for manga, manhwa, and light novels. No extensions required, with built-in high-quality sources.' }],
     ['meta', { property: 'og:image', content: 'https://kainotch.github.io/WammyWeb/img/hero-bg.jpg' }],
     ['meta', { property: 'og:type', content: 'website' }]
@@ -87,3 +87,4 @@ export default defineConfig({
     }
   }
 })
+

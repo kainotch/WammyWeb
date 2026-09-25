@@ -79,7 +79,8 @@ export default defineConfig({
     },
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/kainotch/Wammy' }
+      { icon: 'github', link: 'https://github.com/kainotch/Wammy' },
+      { icon: 'discord', link: 'https://discord.gg/qybFSATs7Q' }
     ],
 
     footer: {
@@ -88,5 +89,6 @@ export default defineConfig({
     }
   }
 })
+
 
 

@@ -61,6 +61,8 @@
 /* Round the edges of the logos */
 .VPNavBarTitle .logo {
   border-radius: 8px;
+  overflow: hidden;
+  object-fit: cover;
 }
 
 .VPHero .image-src {
@@ -171,4 +173,5 @@
 .VPNavBar {
   background-color: var(--vp-c-bg) !important;
 }
+
 

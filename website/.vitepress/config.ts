@@ -11,7 +11,7 @@ export default defineConfig({
 
   head: [
     ['meta', { name: 'theme-color', content: '#a855f7' }],
-    ['link', { rel: 'icon', href: '/favicon.ico' }],
+    ['link', { rel: 'icon', type: 'image/jpeg', href: '/WammyWeb/img/logo.jpg' }],
     ['meta', { name: 'robots', content: 'index, follow' }],
     ['meta', { name: 'keywords', content: 'manga reader, manhwa reader, light novel reader, android manga app, wammy, tachiyomi alternative, mihon alternative, open source reader' }],
     ['meta', { property: 'og:title', content: 'Wammy Manga and Light Novel Reader' }],
@@ -89,6 +89,8 @@ export default defineConfig({
     }
   }
 })
+
+
 
 
 

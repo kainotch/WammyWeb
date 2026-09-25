@@ -2,7 +2,7 @@
 
 export default defineConfig({
   base: '/WammyWeb/',
-  title: "Wammy Manga and Light Novel Reader",
+  title: "Wammy – Manga, Manhwa & Light Novel Reader",
   description: "A free, open-source Android reader for manga, manhwa, and light novels. No extensions required, with built-in high-quality sources.",
   
   sitemap: {
@@ -36,6 +36,7 @@ export default defineConfig({
   appearance: 'dark',
   
   themeConfig: {
+    siteTitle: 'Wammy',
     logo: '/img/logo.jpg',
     nav: [
       { text: 'Home', link: '/' },
@@ -87,4 +88,5 @@ export default defineConfig({
     }
   }
 })
+
 

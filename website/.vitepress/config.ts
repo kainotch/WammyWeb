@@ -1,4 +1,4 @@
-﻿import { defineConfig } from 'vitepress'
+import { defineConfig } from 'vitepress'
 
 export default defineConfig({
   base: '/WammyWeb/',
@@ -11,13 +11,26 @@ export default defineConfig({
 
   head: [
     ['meta', { name: 'theme-color', content: '#a855f7' }],
-    ['link', { rel: 'icon', type: 'image/png', href: '/WammyWeb/img/logo.png' }],
+    ['meta', { name: 'application-name', content: 'Wammy' }],
+    ['meta', { property: 'og:site_name', content: 'Wammy' }],
+    ['link', { rel: 'icon', href: '/WammyWeb/favicon.ico', sizes: '48x48' }],
+    ['link', { rel: 'icon', type: 'image/png', sizes: '48x48', href: '/WammyWeb/favicon-48x48.png' }],
+    ['link', { rel: 'icon', type: 'image/png', sizes: '96x96', href: '/WammyWeb/favicon-96x96.png' }],
+    ['link', { rel: 'icon', type: 'image/png', sizes: '192x192', href: '/WammyWeb/favicon-192x192.png' }],
+    ['link', { rel: 'apple-touch-icon', sizes: '192x192', href: '/WammyWeb/favicon-192x192.png' }],
     ['meta', { name: 'robots', content: 'index, follow' }],
     ['meta', { name: 'keywords', content: 'manga reader, manhwa reader, light novel reader, android manga app, wammy, tachiyomi alternative, mihon alternative, open source reader' }],
     ['meta', { property: 'og:title', content: 'Wammy Manga and Light Novel Reader' }],
     ['meta', { property: 'og:description', content: 'A free, open-source Android reader for manga, manhwa, and light novels. No extensions required, with built-in high-quality sources.' }],
     ['meta', { property: 'og:image', content: 'https://kainotch.github.io/WammyWeb/img/hero-bg.jpg' }],
-    ['meta', { property: 'og:type', content: 'website' }]
+    ['meta', { property: 'og:type', content: 'website' }],
+    ['script', { type: 'application/ld+json' }, JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      name: 'Wammy',
+      alternateName: ['Wammy Reader', 'Kainotch Wammy'],
+      url: 'https://kainotch.github.io/WammyWeb/'
+    })]
   ],
 
   transformPageData(pageData) {

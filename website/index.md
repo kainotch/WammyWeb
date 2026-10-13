@@ -46,9 +46,7 @@ onMounted(async () => {
   
   // Then fetch the latest version client-side
   try {
-    const response = await fetch('https://api.github.com/repos/kainotch/Wammy/releases/latest', {
-      headers: { 'Cache-Control': 'max-age=600' }
-    });
+    const response = await fetch('https://api.github.com/repos/kainotch/Wammy/releases/latest');
     if (response.ok) {
       const data = await response.json();
       const versionEl = document.getElementById('wammy-version');

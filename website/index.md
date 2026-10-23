@@ -4,7 +4,7 @@ layout: home
 hero:
   name: "Wammy"
   text: "Manga, Manhwa & Light Novel Reader"
-  tagline: "Wammy is a free, open-source Android app designed to unify your reading experience. It comes with high-quality content sources built directly into the app, meaning you don't need to hunt for third-party extensions to start reading."
+  tagline: "A free, high-performance open-source Android reader designed to unify your reading experience. Features over 20+ native built-in sources, live star ratings, sub-second cold starts, and full extension support."
   actions:
     - theme: brand
       text: Download APK
@@ -14,29 +14,66 @@ hero:
       link: https://github.com/kainotch/Wammy
 
 features:
-  - title: Manga + Novels Together
-    details: Manage your entire reading library in one single app. Seamlessly switch between reading a manga chapter and a light novel without missing a beat.
+  - title: 20+ Built-In Sources
+    details: Read immediately without hunting for external extension APKs. Native scrapers for MangaDex, Webtoons, ComicK, Mangakakalot, NovelFire, FreeWebNovel, and more.
+    link: /docs/faq/extensions
+    linkText: View supported sources
+
+  - title: Manga + Light Novels Together
+    details: Manage your entire manga, manhwa, and web novel collection in one app. Features custom typography, dark themes, and built-in Text-to-Speech (TTS) narration.
     link: /docs/guides/getting-started
     linkText: Get started
 
-  - title: Sources Built In
-    details: No more searching for extension repositories. Wammy comes with high-quality, curated manga and novel sources built right in so you can read immediately.
-    link: /docs/faq/extensions
-    linkText: Learn why
+  - title: Live Ratings & View Counts
+    details: Star ratings and total view counts parsed directly from sources and rendered onto cards across browse catalogs, search feeds, and your personal library.
+    link: /docs/faq/browse
+    linkText: Learn more
 
-  - title: Global Search & Tracking
-    details: Search across all sources at once to find exactly what you want to read. Automatically track your progress with MyAnimeList, AniList, and more.
-    
-  - title: Gesture Navigation
-    details: Hold and slide the floating action button to effortlessly glide between your feeds and chapters. Intuitive and fast for one-handed reading.
+  - title: Fast Cold Starts & 120Hz UI
+    details: Sub-second startup speeds with non-blocking migrations, zero-allocation cache revision, and buttery smooth 120Hz/90Hz Material 3 Jetpack Compose scrolling.
+
+  - title: Google Drive Cloud Sync
+    details: Automated, background cloud synchronization for your library, reading progress, categories, and custom Top 5 favorites directly to your private Google Drive.
+    link: /docs/faq/general
+    linkText: How sync works
+
+  - title: Universal Extension Support
+    details: Full compatibility with external Mihon/Tachiyomi APK extensions, LNReader JavaScript novel plugins, and optional Shizuku background installations.
+    link: /docs/guides/shizuku
+    linkText: Extension guide
 ---
+
+<div class="screenshot-section">
+  <h2 class="screenshot-title">Modern Material 3 Interface</h2>
+  <p class="screenshot-subtitle">Fast, fluid, and designed for comfortable one-handed reading</p>
+  
+  <div class="screenshot-grid">
+    <div class="screenshot-card">
+      <img :src="withBase('/img/screenshots/home.jpg')" alt="Home and Discover Screen" />
+      <div class="screenshot-caption">Home & Discover</div>
+    </div>
+    <div class="screenshot-card">
+      <img :src="withBase('/img/screenshots/library.jpg')" alt="Library Grid" />
+      <div class="screenshot-caption">Library Grid</div>
+    </div>
+    <div class="screenshot-card">
+      <img :src="withBase('/img/screenshots/details.jpg')" alt="Details and Recommendations" />
+      <div class="screenshot-caption">Details & Suggestions</div>
+    </div>
+    <div class="screenshot-card">
+      <img :src="withBase('/img/screenshots/profile.jpg')" alt="User Profile and Cloud Sync" />
+      <div class="screenshot-caption">Profile & Cloud Sync</div>
+    </div>
+  </div>
+</div>
 
 <script setup>
 import { onMounted } from 'vue'
+import { withBase } from 'vitepress'
 import { data as bakedData } from './.vitepress/theme/data/releases.data'
 
 onMounted(async () => {
-  // First, set up the DOM element with baked data
+  // Set up version badge with baked data
   const nameEl = document.querySelector('.VPHero .name .clip');
   let currentVersion = bakedData.version !== 'Coming soon' ? bakedData.version : '';
   
@@ -44,7 +81,7 @@ onMounted(async () => {
     nameEl.innerHTML = `Wammy <span id="wammy-version" style="font-size: 0.5em; color: var(--vp-c-text-2); vertical-align: middle; margin-left: 8px; transition: opacity 0.3s;">${currentVersion}</span>`;
   }
   
-  // Then fetch the latest version client-side
+  // Fetch latest version client-side from GitHub
   try {
     const response = await fetch('https://api.github.com/repos/kainotch/Wammy/releases/latest');
     if (response.ok) {

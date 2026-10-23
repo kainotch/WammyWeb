@@ -5,8 +5,9 @@ import { data as bakedData } from '../data/releases.data'
 const version = ref(bakedData.version)
 const body = ref(bakedData.body)
 const published_at = ref(bakedData.published_at)
-const universalUrl = ref(bakedData.universalUrl)
-const universalSize = ref(bakedData.universalSize)
+const primaryUrl = ref(bakedData.primaryUrl)
+const primarySize = ref(bakedData.primarySize)
+const primaryName = ref(bakedData.primaryName)
 const otherAssets = ref(bakedData.otherAssets)
 
 onMounted(async () => {
@@ -19,29 +20,38 @@ onMounted(async () => {
     body.value = data.body || ''
     published_at.value = data.published_at ? new Date(data.published_at).toUTCString() : ''
     
-    let uUrl = ''
-    let uSize = ''
+    let pUrl = ''
+    let pSize = ''
+    let pName = ''
     const others = []
     
-    if (data.assets) {
+    if (data.assets && data.assets.length > 0) {
+      // Find arm64-v8a as recommended primary
+      const arm64 = data.assets.find((a: any) => a.name.includes('arm64-v8a') && a.name.endsWith('.apk'))
+      const universal = data.assets.find((a: any) => a.name.includes('universal') && a.name.endsWith('.apk'))
+      const primary = arm64 || universal || data.assets.find((a: any) => a.name.endsWith('.apk'))
+      
+      if (primary) {
+        pUrl = primary.browser_download_url
+        pSize = (primary.size / 1024 / 1024).toFixed(1) + ' MB'
+        pName = primary.name
+      }
+      
       for (const asset of data.assets) {
-        const sizeMB = (asset.size / 1024 / 1024).toFixed(1) + ' MB';
-        if (asset.name.includes('universal') && asset.name.endsWith('.apk')) {
-          uUrl = asset.browser_download_url
-          uSize = sizeMB
-        } else if (asset.name.endsWith('.apk')) {
+        if (asset.name.endsWith('.apk') && asset.browser_download_url !== pUrl) {
           others.push({
             name: asset.name,
             url: asset.browser_download_url,
-            size: sizeMB
+            size: (asset.size / 1024 / 1024).toFixed(1) + ' MB'
           })
         }
       }
     }
     
-    if (uUrl) {
-      universalUrl.value = uUrl
-      universalSize.value = uSize
+    if (pUrl) {
+      primaryUrl.value = pUrl
+      primarySize.value = pSize
+      primaryName.value = pName
     }
     otherAssets.value = others
   } catch (e) {
@@ -54,18 +64,19 @@ onMounted(async () => {
   <div class="downloads-wrapper">
     <div class="download-card stable-card" v-if="version !== 'Coming soon'">
       <div class="badge-row">
-        <span class="badge recommendation">Recommended for most users</span>
+        <span class="badge recommendation">Recommended for modern devices (64-bit ARM)</span>
       </div>
-      <h2>Wammy Universal {{ version }}</h2>
-      <p class="requirements">Requires Android 8.0+</p>
+      <h2>Wammy {{ version }} ({{ primaryName.includes('arm64') ? 'ARM64' : 'Universal' }})</h2>
+      <p class="requirements">Requires Android 8.0+ &bull; Best performance and smallest download size</p>
       
       <ul class="meta-list">
         <li v-if="published_at"><strong>Release Date:</strong> {{ published_at }}</li>
-        <li v-if="universalSize"><strong>File Size:</strong> {{ universalSize }}</li>
+        <li v-if="primarySize"><strong>File Size:</strong> {{ primarySize }}</li>
+        <li v-if="primaryName"><strong>Package:</strong> {{ primaryName }}</li>
       </ul>
       
       <div class="action-row">
-        <a :href="universalUrl" class="btn-download">
+        <a :href="primaryUrl" class="btn-download">
           Download APK
         </a>
       </div>
@@ -76,9 +87,9 @@ onMounted(async () => {
       <p class="requirements">Coming soon! No releases available yet.</p>
     </div>
 
-    <h2 class="subheading" v-if="otherAssets.length > 0">Other downloads</h2>
+    <h2 class="subheading" v-if="otherAssets.length > 0">Other Architectures & Packages</h2>
     <p v-if="otherAssets.length > 0" style="color: var(--vp-c-text-2); margin-bottom: 1rem;">
-      Specific architectures and variants.
+      Choose <strong>Universal</strong> if you are unsure of your device architecture, or specific builds for older 32-bit devices and emulators.
     </p>
 
     <div class="download-grid" v-if="otherAssets.length > 0">
@@ -92,9 +103,9 @@ onMounted(async () => {
     </div>
     
     <div class="changelog-container" v-if="body">
-      <h2 class="subheading">Changelog</h2>
+      <h2 class="subheading">Latest Release Notes</h2>
       <div class="changelog-body">
-        <p>{{ body }}</p>
+        <pre>{{ body }}</pre>
       </div>
       <a href="https://github.com/kainotch/Wammy/releases" class="all-changelogs-link">View all past changelogs on GitHub &rarr;</a>
     </div>
@@ -102,22 +113,23 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-.downloads-wrapper { margin-top: 2rem; }
-.download-card { background-color: var(--vp-c-bg-soft); border: 1px solid var(--vp-c-border); border-radius: 12px; padding: 2rem; margin-bottom: 1rem; }
-.small-card { padding: 1.5rem; }
-.download-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem; }
-.badge { display: inline-block; font-size: 0.75rem; font-weight: 600; padding: 4px 8px; border-radius: 6px; margin-bottom: 0.5rem; }
-.recommendation { background: #313338; color: #a855f7; border: 1px solid #a855f7; }
+.downloads-wrapper { margin-top: 1.5rem; }
+.download-card { background-color: var(--vp-c-bg-soft); border: 1px solid var(--vp-c-border); border-radius: 14px; padding: 2rem; margin-bottom: 1.5rem; }
+.small-card { padding: 1.25rem; display: flex; flex-direction: column; justify-content: space-between; }
+.download-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
+.badge { display: inline-block; font-size: 0.75rem; font-weight: 600; padding: 4px 10px; border-radius: 6px; margin-bottom: 0.75rem; }
+.recommendation { background: rgba(0, 94, 211, 0.15); color: #388bfd; border: 1px solid rgba(0, 94, 211, 0.4); }
 .requirements { font-size: 0.875rem; color: var(--vp-c-text-2); margin-top: 0.5rem; margin-bottom: 1rem; }
 .meta-list { list-style: none; padding: 0; margin: 0 0 1.5rem 0; font-size: 0.875rem; color: var(--vp-c-text-2); }
-.meta-list li { margin-bottom: 0.25rem; }
-.size { font-size: 0.875rem; color: var(--vp-c-text-2); margin-top: 0.5rem; margin-bottom: 1rem; }
-.subheading { margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.5rem; font-weight: 600; border-top: 1px solid var(--vp-c-border); padding-top: 2rem;}
-.changelog-body { background: var(--vp-c-bg-soft); padding: 1rem; border-radius: 8px; margin-top: 1rem; font-family: monospace; white-space: pre-wrap; margin-bottom: 1rem;}
-.all-changelogs-link { font-size: 0.875rem; color: var(--vp-c-brand-1); text-decoration: none; font-weight: 500; }
+.meta-list li { margin-bottom: 0.35rem; }
+.size { font-size: 0.875rem; color: var(--vp-c-text-2); margin-top: 0.25rem; margin-bottom: 1rem; }
+.subheading { margin-top: 2.5rem; margin-bottom: 0.75rem; font-size: 1.4rem; font-weight: 600; border-top: 1px solid var(--vp-c-border); padding-top: 1.75rem; }
+.changelog-body { background: var(--vp-c-bg-soft); padding: 1.25rem; border-radius: 10px; margin-top: 1rem; margin-bottom: 1rem; border: 1px solid var(--vp-c-border); overflow-x: auto; }
+.changelog-body pre { font-family: var(--vp-font-family-mono, monospace); white-space: pre-wrap; font-size: 0.875rem; line-height: 1.5; color: var(--vp-c-text-1); margin: 0; }
+.all-changelogs-link { font-size: 0.9rem; color: var(--vp-c-brand-1); text-decoration: none; font-weight: 500; display: inline-block; margin-top: 0.5rem; }
 .all-changelogs-link:hover { text-decoration: underline; }
-.btn-download { display: inline-block; background-color: var(--vp-c-brand-1); color: white !important; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 600; text-decoration: none; transition: background-color 0.2s; }
-.btn-download:hover { background-color: var(--vp-c-brand-2); }
-.btn-secondary { background-color: transparent; border: 1px solid var(--vp-c-brand-1); color: var(--vp-c-brand-1) !important; padding: 0.5rem 1rem; }
+.btn-download { display: inline-block; background-color: var(--vp-c-brand-1); color: white !important; padding: 0.75rem 1.75rem; border-radius: 8px; font-weight: 600; text-decoration: none; transition: background-color 0.2s, transform 0.1s; text-align: center; }
+.btn-download:hover { background-color: var(--vp-c-brand-2); transform: translateY(-1px); }
+.btn-secondary { background-color: transparent; border: 1px solid var(--vp-c-brand-1); color: var(--vp-c-brand-1) !important; padding: 0.5rem 1rem; font-size: 0.875rem; }
 .btn-secondary:hover { background-color: var(--vp-c-brand-1); color: white !important; }
 </style>

@@ -1,7 +1,11 @@
-﻿:root {
-  --vp-c-brand-1: #a855f7;
-  --vp-c-brand-2: #9333ea;
-  --vp-c-brand-3: #c084fc;
+:root {
+  color-scheme: dark;
+
+  /* Official Wammy Logo Blue (#005ed3 extracted directly from wammy_logo.png) */
+  --vp-c-brand-1: #005ed3;
+  --vp-c-brand-2: #004bb0;
+  --vp-c-brand-3: #388bfd;
+  --vp-c-brand-soft: rgba(0, 94, 211, 0.16);
   
   --vp-button-brand-border: transparent;
   --vp-button-brand-text: var(--vp-c-white);
@@ -12,30 +16,151 @@
   --vp-button-brand-active-border: transparent;
   --vp-button-brand-active-text: var(--vp-c-white);
   --vp-button-brand-active-bg: var(--vp-c-brand-1);
+
+  /* Komikku / VitePress Sleek Deep Dark Palette */
+  --vp-c-bg: #1b1b1f;
+  --vp-c-bg-alt: #161618;
+  --vp-c-bg-elv: #202127;
+  --vp-c-bg-soft: #202127;
+  --vp-c-bg-mute: #202127;
+
+  /* Subtle Crisp Borders */
+  --vp-c-border: rgba(82, 82, 89, 0.32);
+  --vp-c-divider: rgba(82, 82, 89, 0.32);
+
+  /* High Legibility Text Hierarchy */
+  --vp-c-text-1: rgba(255, 255, 255, 0.90);
+  --vp-c-text-2: rgba(235, 235, 245, 0.65);
+  --vp-c-text-3: rgba(235, 235, 245, 0.40);
+
+  /* Callout Custom Containers */
+  --vp-custom-block-info-bg: #202127;
+  --vp-custom-block-info-border: rgba(0, 94, 211, 0.45);
+  --vp-custom-block-info-text: rgba(255, 255, 255, 0.90);
+
+  --vp-custom-block-tip-bg: rgba(0, 94, 211, 0.1);
+  --vp-custom-block-tip-border: var(--vp-c-brand-1);
+  --vp-custom-block-tip-text: #93c5fd;
+
+  --vp-custom-block-warning-bg: rgba(245, 158, 11, 0.1);
+  --vp-custom-block-warning-border: #f59e0b;
+  --vp-custom-block-warning-text: #fef3c7;
+
+  --vp-custom-block-details-bg: #161618;
+  --vp-custom-block-details-border: rgba(82, 82, 89, 0.35);
 }
 
 .dark {
-  /* Discord Dark Gray background */
-  --vp-c-bg: #313338;
-  --vp-c-bg-alt: #2b2d31;
-  
-  /* Sidebar and other surfaces */
-  --vp-c-bg-soft: #2b2d31;
-  --vp-c-bg-mute: #1e1f22;
-
-  /* Borders */
-  --vp-c-border: #404249;
-  --vp-c-divider: #404249;
-
-  /* Text colors */
-  --vp-c-text-1: #f2f3f5;
-  --vp-c-text-2: #b5bac1;
+  --vp-c-bg: #1b1b1f;
+  --vp-c-bg-alt: #161618;
+  --vp-c-bg-elv: #202127;
+  --vp-c-bg-soft: #202127;
+  --vp-c-bg-mute: #202127;
+  --vp-c-border: rgba(82, 82, 89, 0.32);
+  --vp-c-divider: rgba(82, 82, 89, 0.32);
 }
 
-/* Adjust download button specifically to match Wammy UI */
+/* Force Dark Mode Only - Completely remove appearance toggles */
+.VPSwitchAppearance,
+.VPNavBarAppearance,
+.VPNavScreenAppearance {
+  display: none !important;
+}
+
+/* Nav & Sidebar Consistency */
+.VPNavBar {
+  background-color: var(--vp-c-bg-alt) !important;
+  border-bottom: 1px solid var(--vp-c-border);
+}
+
+.VPSidebar {
+  background-color: var(--vp-c-bg-alt) !important;
+  border-right: 1px solid var(--vp-c-border);
+}
+
+/* Rounded Logo */
+.VPNavBarTitle .logo {
+  border-radius: 8px;
+  overflow: hidden;
+  object-fit: cover;
+}
+
+/* Details and Collapsible Error Boxes */
+.custom-block.details {
+  background-color: var(--vp-c-bg-alt);
+  border: 1px solid var(--vp-c-border);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  margin: 0.75rem 0;
+  transition: border-color 0.2s ease;
+}
+
+.custom-block.details summary {
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+  color: var(--vp-c-text-1);
+  padding: 0.25rem 0;
+}
+
+.custom-block.details summary code {
+  color: var(--vp-c-brand-3);
+  background-color: rgba(0, 94, 211, 0.15);
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+}
+
+.custom-block.details[open] {
+  border-color: rgba(0, 94, 211, 0.45);
+}
+
+/* Code blocks inside documents */
+.vp-doc pre {
+  border: 1px solid var(--vp-c-border);
+  border-radius: 8px;
+  background-color: #121214 !important;
+}
+
+/* Callout Info Container Header */
+.custom-block.info .custom-block-title {
+  color: var(--vp-c-brand-3);
+  font-weight: 600;
+}
+
+/* Step-by-step numbers in guides */
+.vp-doc ol {
+  padding-left: 1.25rem;
+}
+
+.vp-doc ol > li {
+  margin: 0.4rem 0;
+  line-height: 1.65;
+}
+
+.vp-doc ol > li::marker {
+  color: var(--vp-c-brand-1);
+  font-weight: 700;
+}
+
+/* Bottom Page Navigation Buttons */
+.pager-link {
+  background-color: var(--vp-c-bg-soft) !important;
+  border: 1px solid var(--vp-c-border) !important;
+  border-radius: 10px !important;
+  transition: all 0.2s ease !important;
+}
+
+.pager-link:hover {
+  border-color: var(--vp-c-brand-1) !important;
+  transform: translateY(-2px);
+}
+
+/* Downloads Card */
 .downloads-wrapper {
   margin-top: 2rem;
 }
+
 .download-card {
   background-color: var(--vp-c-bg-soft);
   border: 1px solid var(--vp-c-border);
@@ -43,6 +168,7 @@
   padding: 2rem;
   margin-bottom: 2rem;
 }
+
 .btn-download {
   display: inline-block;
   background-color: var(--vp-c-brand-1);
@@ -54,22 +180,12 @@
   transition: background-color 0.2s;
   margin-top: 1rem;
 }
+
 .btn-download:hover {
   background-color: var(--vp-c-brand-2);
 }
 
-/* Round the edges of the logos */
-.VPNavBarTitle .logo {
-  border-radius: 8px;
-  overflow: hidden;
-  object-fit: cover;
-}
-
-.VPHero .image-src {
-  border-radius: 16px;
-}
-
-/* Reimagined Hero Background */
+/* Hero Section */
 .VPHero {
   position: relative;
   z-index: 1;
@@ -89,14 +205,9 @@
   background-size: cover;
   background-position: center 15%;
   z-index: -2;
-  opacity: 0.5; /* dim the background */
+  opacity: 0.45;
 }
 
-/* 
-  Smooth gradient from solid on the left (for text) 
-  fading to transparent on the right, 
-  and fading to solid at the bottom to blend into the page.
-*/
 .VPHero::after {
   content: "";
   position: absolute;
@@ -104,7 +215,7 @@
   background: linear-gradient(
     to right, 
     var(--vp-c-bg) 10%, 
-    rgba(49, 51, 56, 0.8) 50%, 
+    rgba(27, 27, 31, 0.85) 50%, 
     transparent 100%
   ),
   linear-gradient(
@@ -115,16 +226,15 @@
   z-index: -1;
 }
 
-/* Force the text container to sit on the left */
 .VPHero .container {
   width: 100%;
   justify-content: flex-start !important;
-  padding-left: 1.5rem; /* mobile default */
+  padding-left: 1.5rem;
 }
 
 @media (min-width: 768px) {
   .VPHero .container {
-    padding-left: 4rem; /* pc gap */
+    padding-left: 4rem;
   }
 }
 
@@ -136,11 +246,12 @@
 
 .VPHero .name .clip {
   background: none;
-  -webkit-text-fill-color: var(--vp-c-text-1);
-  color: var(--vp-c-text-1);
+  -webkit-text-fill-color: var(--vp-c-brand-1);
+  color: var(--vp-c-brand-1);
   font-size: 2.5rem;
   letter-spacing: -1px;
 }
+
 .VPHero .text {
   color: var(--vp-c-brand-3);
   font-size: 1.8rem;
@@ -155,6 +266,7 @@
     font-size: 2.5rem;
   }
 }
+
 .VPHero .tagline {
   color: var(--vp-c-text-1);
   font-size: 1.25rem;
@@ -166,12 +278,67 @@
   display: none !important;
 }
 
-
-
-
-/* Make the navbar solid */
-.VPNavBar {
-  background-color: var(--vp-c-bg) !important;
+/* Screenshot Showcase Gallery */
+.screenshot-section {
+  margin: 4rem auto 2rem;
+  max-width: 1152px;
+  padding: 0 1.5rem;
+  text-align: center;
 }
 
+.screenshot-title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--vp-c-text-1);
+  margin-bottom: 0.5rem;
+}
 
+.screenshot-subtitle {
+  color: var(--vp-c-text-2);
+  font-size: 1.05rem;
+  margin-bottom: 2rem;
+}
+
+.screenshot-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .screenshot-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+.screenshot-card {
+  background: var(--vp-c-bg-soft);
+  border: 1px solid var(--vp-c-border);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.screenshot-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--vp-c-brand-1);
+  box-shadow: 0 12px 24px -10px rgba(0, 94, 211, 0.3);
+}
+
+.screenshot-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.screenshot-caption {
+  padding: 0.85rem 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--vp-c-text-1);
+  border-top: 1px solid var(--vp-c-border);
+}

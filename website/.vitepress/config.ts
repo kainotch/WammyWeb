@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitepress'
+import { fileURLToPath, URL } from 'node:url'
 
 export default defineConfig({
   base: '/WammyWeb/',
@@ -10,7 +11,8 @@ export default defineConfig({
   },
 
   head: [
-    ['meta', { name: 'theme-color', content: '#a855f7' }],
+    ['meta', { name: 'theme-color', content: '#005ed3' }],
+    ['meta', { name: 'color-scheme', content: 'dark' }],
     ['meta', { name: 'application-name', content: 'Wammy' }],
     ['meta', { property: 'og:site_name', content: 'Wammy' }],
     ['link', { rel: 'icon', href: '/WammyWeb/favicon.ico', sizes: '48x48' }],
@@ -46,19 +48,55 @@ export default defineConfig({
   },
 
   cleanUrls: true,
-  appearance: 'dark',
+  // Enforce dark mode only across the site - light mode is completely disabled
+  appearance: 'force-dark',
   
+  vite: {
+    resolve: {
+      alias: [
+        {
+          find: /^.*\/VPNavBarMenu\.vue$/,
+          replacement: fileURLToPath(
+            new URL('./theme/components/CustomNavBarMenu.vue', import.meta.url)
+          )
+        },
+        {
+          find: /^.*\/VPNavScreenMenu\.vue$/,
+          replacement: fileURLToPath(
+            new URL('./theme/components/CustomNavScreenMenu.vue', import.meta.url)
+          )
+        }
+      ]
+    }
+  },
+
   themeConfig: {
     siteTitle: 'Wammy',
     logo: '/img/logo.png',
+    outline: [2, 3],
+    
     nav: [
-      { text: 'Home', link: '/' },
-      { text: 'Download', link: '/download/' },
+      {
+        text: 'Get {app_version}',
+        activeMatch: '^/*?(download|changelogs)/*?$',
+        items: [
+          { text: 'Download', link: '/download/' },
+          { text: 'Changelogs', link: '/changelogs' }
+        ]
+      },
+      { text: 'Docs', link: '/docs/guides/getting-started' },
       { text: 'Contribute', link: '/contribute' },
       { text: 'FAQ', link: '/docs/faq/general' }
     ],
 
     sidebar: [
+      {
+        items: [
+          { text: 'Download', link: '/download/' },
+          { text: 'Changelogs', link: '/changelogs' },
+          { text: 'Contribute', link: '/contribute' }
+        ]
+      },
       {
         text: 'Frequently Asked Questions',
         collapsed: false,
@@ -68,7 +106,8 @@ export default defineConfig({
           { text: 'Browse', link: '/docs/faq/browse' },
           { text: 'Extensions', link: '/docs/faq/extensions' },
           { text: 'Local source', link: '/docs/faq/local-source' },
-          { text: 'Reader', link: '/docs/faq/reader' }
+          { text: 'Reader', link: '/docs/faq/reader' },
+          { text: 'Storage', link: '/docs/faq/storage' }
         ]
       },
       {
@@ -76,11 +115,27 @@ export default defineConfig({
         collapsed: false,
         items: [
           { text: 'Getting started', link: '/docs/guides/getting-started' },
+          {
+            text: 'Troubleshooting',
+            collapsed: false,
+            items: [
+              { text: 'Overview', link: '/docs/guides/troubleshooting/' },
+              { text: 'Common issues', link: '/docs/guides/troubleshooting/common-issues' },
+              { text: 'Diagnosis', link: '/docs/guides/troubleshooting/diagnosis' }
+            ]
+          },
           { text: 'Source migration', link: '/docs/guides/source-migration' },
+          { text: 'Backups & Cloud Sync', link: '/docs/guides/backups' },
           { text: 'Tracking', link: '/docs/guides/tracking' },
           { text: 'Categories', link: '/docs/guides/categories' },
-          { text: 'Local source', link: '/docs/guides/local-source' },
-          { text: 'Advanced editing', link: '/docs/guides/local-source-advanced' },
+          {
+            text: 'Local source',
+            collapsed: true,
+            items: [
+              { text: 'Standard format', link: '/docs/guides/local-source' },
+              { text: 'Advanced editing', link: '/docs/guides/local-source-advanced' }
+            ]
+          },
           { text: 'Reader settings', link: '/docs/guides/reader-settings' },
           { text: 'Shizuku', link: '/docs/guides/shizuku' }
         ]
@@ -92,19 +147,32 @@ export default defineConfig({
     },
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/kainotch/Wammy' },
-      { icon: 'discord', link: 'https://discord.gg/qybFSATs7Q' }
+      { icon: 'github', link: 'https://github.com/kainotch/Wammy', ariaLabel: 'Project GitHub' },
+      { icon: 'discord', link: 'https://discord.gg/qybFSATs7Q', ariaLabel: 'Discord Community' }
     ],
 
+    editLink: {
+      pattern: 'https://github.com/kainotch/Wammy/edit/main/website/:path',
+      text: 'Help us improve this page'
+    },
+
+    lastUpdated: {
+      text: 'Last updated',
+      formatOptions: {
+        forceLocale: true,
+        dateStyle: 'long',
+        timeStyle: 'short'
+      }
+    },
+
+    docFooter: {
+      prev: 'Previous page',
+      next: 'Next page'
+    },
+
     footer: {
-      message: 'Free and open source software under the Apache License 2.0',
-      copyright: 'Copyright c 2026 Wammy'
+      message: 'Free and open-source software under the Apache License 2.0',
+      copyright: 'Copyright © 2026 Wammy'
     }
   }
 })
-
-
-
-
-
-

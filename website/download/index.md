@@ -1,13 +1,22 @@
 ---
 title: Download Wammy
-layout: doc
+description: Download page that allows users to access and install the latest version of Wammy.
+lastUpdated: false
+editLink: false
 ---
 
-# Download Wammy
+<script setup>
+import DownloadButtons from '../.vitepress/theme/components/DownloadButtons.vue'
+import ReleaseDate from '../.vitepress/theme/components/ReleaseDate.vue'
+import Changelog from '../.vitepress/theme/components/Changelog.vue'
+</script>
 
-Get the latest version of Wammy for your Android device.
+# Download
 
-<DownloadGrid />
+The latest stable version of **Wammy** was released **<ReleaseDate />**.
 
-## Older Versions & Changelogs
-You can find all previous releases and their detailed patch notes on our [GitHub Releases page](https://github.com/kainotch/Wammy/releases).
+Beta releases and experimental testing builds are available on our [GitHub Releases](https://github.com/kainotch/Wammy/releases).
+
+<DownloadButtons />
+
+<Changelog />

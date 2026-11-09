@@ -94,7 +94,9 @@ export default defineConfig({
         items: [
           { text: 'Download', link: '/download/' },
           { text: 'Changelogs', link: '/changelogs' },
-          { text: 'Contribute', link: '/contribute' }
+          { text: 'Contribute', link: '/contribute' },
+          { text: 'Privacy Policy', link: '/privacy' },
+          { text: 'Terms of Service', link: '/terms' }
         ]
       },
       {

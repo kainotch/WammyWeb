@@ -49,7 +49,7 @@ features:
   
   <div class="screenshot-grid">
     <div class="screenshot-card">
-      <img :src="withBase('/img/screenshots/home.jpg')" alt="Home and Discover Screen" />
+      <img :src="withBase('/img/screenshots/home_v2.jpg')" alt="Home and Discover Screen" />
       <div class="screenshot-caption">Home & Discover</div>
     </div>
     <div class="screenshot-card">
@@ -63,6 +63,10 @@ features:
     <div class="screenshot-card">
       <img :src="withBase('/img/screenshots/profile.jpg')" alt="User Profile and Cloud Sync" />
       <div class="screenshot-caption">Profile & Cloud Sync</div>
+    </div>
+    <div class="screenshot-card">
+      <img :src="withBase('/img/screenshots/reader.jpg')" alt="3D Page Curl Reader" />
+      <div class="screenshot-caption">3D Page Curl</div>
     </div>
   </div>
 </div>
